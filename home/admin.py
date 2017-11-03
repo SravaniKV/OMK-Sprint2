@@ -10,13 +10,13 @@ class EmployeeList(admin.ModelAdmin):
 
 
 class MentorList(admin.ModelAdmin):
-    list_display = ('Mentor_name', 'Mentor_phone', 'Mentor_Id','Mentor_Address','Mentor_Gender')
-    search_fields = ('Mentor_name', 'Mentor_phone','Mentor_Id')
+    list_display = ('Mentor_name', 'Mentor_phone', 'Mentor_Id','Mentor_Address','Mentor_Gender','begining_date','ending_date')
+    search_fields = ('Mentor_name', 'Mentor_phone','Mentor_Id','begining_date','ending_date')
 
 class StudentList(admin.ModelAdmin):
     list_display = ('Student_id', 'Student_name', 'Student_email', 'Student_grade','Parents_email',
-                    'Parents_phone', 'School', 'Men_name','Emp_name')
-    search_fields = ('Student_name', 'Student_id', 'School' ,'Parents_phone',)
+                    'Parents_phone', 'School', 'Men_name','Emp_name','start_date','last_date')
+    search_fields = ('Student_name', 'Student_id', 'School' ,'Parents_phone','start_date','last_date',)
 
 admin.site.register(Employee,EmployeeList )
 admin.site.register(Mentor,MentorList)

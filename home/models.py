@@ -29,6 +29,16 @@ class Mentor(models.Model):
     Mentor_Gender=models.CharField(max_length=10, default ='X' ,help_text="Enter F or M")
     Mentor_Id=models.CharField(max_length=10)
 #    student_count = models.IntegerField(max_digits=10) (we should do the hardcode in later sprint)
+    begining_date = models.DateField(default=timezone.now)
+    ending_date = models.DateField(blank=True, null=True)
+
+    def created(self):
+        self.begining_date = timezone.now()
+        self.save()
+
+    def enddate(self):
+        self.ending_date = timezone.now()
+        self.save()
 
     def __str__(self):
        return str(self.Mentor_name)
@@ -43,10 +53,15 @@ class Student(models.Model):
      School= models.CharField(max_length=49)
      Men_name =models.ForeignKey(Mentor,related_name='Menemail')
      Emp_name= models.ForeignKey(Employee, related_name='Empemail')
-     created_date = models.DateTimeField(default=timezone.now)
+     start_date = models.DateTimeField(default=timezone.now)
+     last_date = models.DateField(blank=True, null=True)
 
-     def created(self):
-         self.created_date = timezone.now()
+     def create(self):
+         self.start_date = timezone.now()
+         self.save()
+
+     def lastdate(self):
+         self.last_date = timezone.now()
          self.save()
 
      def __str__(self):

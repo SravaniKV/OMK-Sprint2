@@ -133,6 +133,62 @@ def password_reset_complete(request):
     {'home': password_reset_complete})
 
 def Student_list(request):
-    Student_list = Student.objects.filter(created_date__lte=timezone.now())
-    return render(request, 'home/mentorhome.html',
-    {'home': Student_list})
+    students = Student.objects.filter(start_date__lte=timezone.now())
+    return render(request, 'home/studentlist.html',
+    {'home': students})
+
+
+def studentedit(request):
+   student = get_object_or_404(Student)
+   if request.method == "POST":
+       form = StudentForm(request.POST, instance=student)
+       if form.is_valid():
+           student = form.save()
+           # stock.customer = stock.id
+           student.updated_date = timezone.now()
+           student.save()
+           students = Student.objects.filter(start_date__lte=timezone.now())
+           return render(request, 'home/studentlist.html', {'student': students})
+   else:
+       # print("else")
+       form = StudentForm(instance=student)
+   return render(request, 'home/studentedit.html', {'form': form})
+
+def studentadd(request):
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.start_date = timezone.now()
+            student.save()
+            students = Student.objects.filter(start_date__lte=timezone.now())
+            return render(request, 'home/studentlist.html',
+                          {'student': students})
+    else:
+        form = StudentForm()
+        # print("Else")
+    return render(request, 'home/studentadd.html', {'form': form})
+
+
+
+def studentsarchive(request):
+    student = get_object_or_404(Student)
+    if request.method =="POST":
+       form = StudentForm(request.POST, instance = student)
+       print("one")
+       if form.is_valid():
+           print("2")
+           student= form.save()
+           print("3")
+           Stud_id = form.cleaned_data['Student ID']
+           print("4")
+           student_arch= Student.object.filter(Student_id = Stud_id)
+           print("5")
+           student_arch.delete()
+           students = StudentForm(instance=student)
+           return render(request, 'home/studentlist.html', {'student': students})
+
+    else:
+           print("else")
+     #  form = StudentForm(instance=student)
+      # return render(request, 'home/studentsarchive.html', {'form': form})

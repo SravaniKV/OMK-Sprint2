@@ -23,4 +23,8 @@ urlpatterns = [
     url(r'^empstudentsreports/$', views.empstudentsreports, name='empstudentsreports'),
     url(r'^empcreateappointments/$', views.empcreateappointments, name='empcreateappointments'),
     url(r'^mentorlist/$', views.mentorlist, name='mentorlist'),
+    url(r'^studentlist/$', views.Student_list, name='studentlist'),
+    url(r'^studentedit/$', views.studentedit, name='studentedit'),
+    url(r'^studentsarchive/$', views.studentsarchive, name='studentsarchive'),
+    url(r'^studentadd/$', views.studentadd, name='studentadd'),
     ]
